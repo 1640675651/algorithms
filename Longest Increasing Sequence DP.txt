@@ -1,0 +1,50 @@
+Longest Increasing Sequence DP
+
+Input: a list l.
+
+O(n^2) solution:
+
+	Define dp[i]: the longest increasing sequence that ends at i.
+
+	Formula:
+
+	dp[i] = max(dp[x from 0 to i-1] if l[i] > l[x]) + 1
+
+	Initial condition:
+
+	dp[i] = 1 for any i.
+
+	Answer:
+
+	max(dp)
+
+O(nlogn) solution:
+
+	Define dp[i]: the least ending number of all the increasing subsequence with length i
+
+	Formula:
+
+	for j from 0 to n-1:
+		if l[j] is larger than every number in dp (the last number in dp), then append l[j] to the end of dp.
+		otherwise dp[i+1] = l[j], where dp[i] is the rightmost number that is less than l[j].
+
+	Explanation:
+		Suppose we already have dp at j-1th loop. At this point we have already computed len(dp) possible increasing sequence. For l[j], we can add it to any possible increasing sequence whose last number is less than l[j]. 
+
+		Example: we have dp = [1, 2, 4, 5] and l[j] = 3. 
+		Can put 3 after 1 to form an increasing sequence of length 2. However, the least ending number of length 2 sequence is already 2. 3 > 2 so we don't update it.
+
+		Can put 3 after 2 to form an increasing sequence of length 3. The known least ending number of length 3 sequence is 4. so update 4 to 3.
+
+		For items in dp larger than 3, 3 cannot be added after them to form an increasing sequence.
+
+	Initial condition:
+
+	dp[0] = -Infinity
+
+	Answer:
+
+	dp[-1] (the last number in dp)
+
+	Since dp is non-decreasing ordered, can use binary search to find i in log(n) time.
+

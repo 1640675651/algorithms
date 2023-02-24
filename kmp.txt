@@ -1,0 +1,61 @@
+kmp O(n+m) string matching algorithm
+
+basic idea: skip matching positions that are impossible to find the pattern string
+the prefix of the next match must equal to the suffix of the current match.
+
+input: text T with length n, pattern P with length m.
+
+output: find all occurences of P in T
+
+define next[i]: the maximum length of the common string of the prefix and suffix of P[0:i] (all range notations are inclusive)
+
+explanation:
+	Suppose we have a partial match from T[x] to T[y], and the match broke at T[y+1]. Then T[x:y] = P[0:y-x], T[y+1] != P[y-x+1].
+	In naive method, we restart matching from T[x+1] and P[0]. However, in many cases the new matching will never succeed, only wasting time.
+	How can we know the next try is possible to succeed? In the last try of matching, we already gone through T[x+1] to T[y]. This information can be utilized.
+	The answer is, the prefix of the next match must equal to the suffix of the current match. Otherwise the match is bound to fail.
+	Example: T = aaaaabc P = aaaaad
+
+	In the first match, we end up like this:
+
+	          v
+	a a a a a b c
+	a a a a a d
+	          ^
+
+	T[0:4] = P[0:4], but the match break at T[5] and P[5].
+	In naive method, we move the P forward like this:
+
+	  v
+	a a a a a b c
+	  a a a a a d
+	  ^
+
+	and start matching from the beginning of P.
+	But in the last match, we already know T[0:4] = P[0:4].
+	By checking the "next" array, we know P[0:3] = P[1:4], therefore T[1:4] = P[0:3].
+	So we can directly align P[0:3] = T[1:4] and start from T[5] and P[4].
+
+	          v
+	a a a a a b c
+	  a a a a a d
+	          ^
+
+	By similar approach, the next match becomes
+
+	          v
+	a a a a a b c
+	    a a a a a d
+	          ^
+	
+	Each time in the loop, either the P string move to the right at least 1 unit, or the "i pointer" (pointer of T string) add 1.
+	At most, i can increase n times and the P string can move to the right n-m times.
+	Therefore, the max number of loops = n-m.
+
+Preprocessing needs 2m time. so total time is O(n+m).
+
+
+step 1: preprocess array next
+	This step is like applying kmp to itself. see notes on ipad.
+
+step 2: start pattern matching

@@ -1,0 +1,20 @@
+check whether a point p is in a polygon:
+
+loop through the vertices of the polygon a1 ... an, in clockwise order.
+if all angle (a1, p, a+1) are counterclockwise, the point is in the polygon.
+To check whether the angles is counterclockwise, use the same cross product technique used in convex hull.
+That is, (a1 p) x (p a2) > 0, the angle is counterclockwise.
+
+Area or triangle: 0.5 * a * b sin(theta), where theta is the angle between side a and b
+Area of regular n-gon: 0.5 * n * r * r * sin(2 * PI / n);
+
+sum of angle of n-gon: (n-2) * PI
+
+Converting Cartesian to polar
+The value of tan-1( y/x ) may need to be adjusted:
+Quadrant I: Use the calculator value
+Quadrant II: Add 180°
+Quadrant III: Add 180°
+Quadrant IV: Add 360°
+
+hint: rotational symmetry and polar coordinates

@@ -1,0 +1,25 @@
+bfs cannot keep track all possible paths.
+
+# recursion and stack limit
+import resource, sys
+resource.setrlimit(resource.RLIMIT_STACK, (2**29,-1)) # may not work
+sys.setrecursionlimit(10**6) # Will mostly cause stack overflow or TLE if need this many recursions
+
+Convert binary string bs to int in Python: int(bs, 2)
+Convert int to binary string: bin(x)
+
+when processing very large numbers (e.g. 10^(10^5)), store lower digits in lower index for convenience.
+
+Sometimes can convert things to intervals, sort the intervals by their upper bound and use greedy.
+
+Don't try to modify things in a priority queue/heap. Just insert new entries, they will "mask off" the old ones, and remember to ignore the old ones.
+
+Sometimes do a high-level counting may works... instead of diving too deep into the structural details. 
+
+Use LONG LONG! Don't bother deciding which to use int and which to use long long when the numbers are large. Just use everything as LONG LONG.
+
+Sometimes greedy is not just coming up with a single equation. Can do some brute-force if time complexity allows.
+
+READ PROBLEMS CAREFULLY! 
+	INPUT ON MULTIPLE LINES
+	you DO NOT need to minimize k
